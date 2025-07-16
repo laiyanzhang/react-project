@@ -1,6 +1,7 @@
-import { getTableList, getGenderOptions, deleteTableItem } from '@api/index'
+import { getTableList, deleteTableItem } from '@api/index'
 import styles from './demo.module.less'
-import useMessage from '@hook/useMessage';
+import useMessage from '@hooks/useMessage'
+import EditModal from './EditModal'
 
 interface dataItem {
   id: number,
@@ -15,27 +16,32 @@ interface dataItem {
 
 const Demo = () => {
   const message = useMessage()
+  const genderOptions = useLoaderData()
   const queryClient = useQueryClient()
   const columns = [
     {
       title: 'Id',
       dataIndex: 'id',
       key: 'id',
+      width: 50
     },
     {
       title: '名字',
       dataIndex: 'name',
       key: 'name',
+      width: 80
     },
     {
       title: '年龄',
       dataIndex: 'age',
       key: 'age',
+      width: 70
     },
     {
       title: '性别',
       dataIndex: 'gender',
       key: 'gender',
+      width: 70
     },
     {
       title: '邮箱',
@@ -51,6 +57,7 @@ const Demo = () => {
       title: '标签',
       dataIndex: 'tags',
       key: 'tags',
+      width: 100,
       render: (_:any , { tags }: { tags: Array<string> }) => (
         <>
           {
@@ -72,10 +79,12 @@ const Demo = () => {
       title: '创建时间',
       dataIndex: 'createTime',
       key: 'createTime',
+      width: 200
     },
     {
       title: 'Action',
       key: 'action',
+      width: 150,
       render: (_: any, record: dataItem) => (
         <Space size="middle">
           <a onClick={() => handleEdit(record)}>编辑</a>
@@ -90,21 +99,14 @@ const Demo = () => {
     name: '',
     gender: '',
   })
+  const [detail, setDetail] = useState({})
+  const [modalOpen, setModalOpen] = useState(false)
   const [total, setTotal] = useState(0)
-  const {data: genderOptions} = useQuery({
-    queryKey: ['fecthGender'],
-    queryFn: async() => {
-      const res = await getGenderOptions()
-      return res.data.data
-    }
-  })
   const { data: tableList } = useQuery({
     queryKey: ['fetchTable', JSON.stringify(params)],
     queryFn: async() => {
-      console.log('请求')
       const res = await getTableList(params)
       const data = res.data.data
-      console.log(data.list)
       setTotal(data.total)
       return data.list
     },
@@ -114,14 +116,13 @@ const Demo = () => {
       key: item.id
     }))
   })
-  const deleteMutation = useMutation({
-    mutationFn: (id: number) => deleteTableItem({ id: id }),
-    onSuccess: async () => {
-      message.success('删除成功')
-      const BATCH_SIZE = 2
-      // 更新当前页面
-      await queryClient.refetchQueries({ queryKey: ['fetchTable', JSON.stringify(params)] })
+  // 刷新分页数据
+  const refresh = async (refreshOther: boolean = false) => {
+    const BATCH_SIZE = 2
+    // 更新当前页面
+    await queryClient.refetchQueries({ queryKey: ['fetchTable', JSON.stringify(params)] })
 
+    if(refreshOther) {
       // 获取其他已缓存的分页键
       const otherCachedPages = queryClient
         .getQueryCache()
@@ -139,6 +140,13 @@ const Demo = () => {
           .map(query => queryClient.refetchQueries({ queryKey: query.queryKey }));
         await Promise.allSettled(batch);
       }
+    }
+  }
+  const deleteMutation = useMutation({
+    mutationFn: (id: number) => deleteTableItem({ id: id }),
+    onSuccess: async () => {
+      message.success('删除成功')
+      refresh(true)
     }
   })
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
@@ -159,10 +167,18 @@ const Demo = () => {
     })
   }
   const handleEdit = (record: dataItem) => {
-    console.log(record)
+    setDetail(record)
+    setModalOpen(true)
   }
   const handleDelete = (record: dataItem) => {
     deleteMutation.mutate(record.id)
+  }
+  const handleCancel = () => {
+    setModalOpen(false)
+  }
+  const handleSubmit = () => {
+    setModalOpen(false)
+    refresh()
   }
   return (
     <div className={ styles.demo }>
@@ -180,8 +196,22 @@ const Demo = () => {
           />
         </div>
       </div>
-      <Table dataSource={tableList} columns={columns} className={styles.table} pagination={false} />
+      <Table
+        dataSource={tableList}
+        columns={columns}
+        className={styles.table}
+        pagination={false}
+        scroll={{ y: 740, x: 1000 }}
+      />
       <Pagination current={params.pageIndex} total={total} className={styles.pagination} onChange={handleChangePage} />
+      <EditModal
+        detail={detail}
+        isModalOpen={modalOpen}
+        cancel={handleCancel}
+        submit={handleSubmit}
+        genderOptions={genderOptions}
+      >
+      </EditModal>
     </div>
   )
 }

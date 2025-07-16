@@ -21,6 +21,7 @@ export default tseslint.config([
     },
     rules: {
       '@typescript-eslint/no-explicit-any': 'off', // 关闭 any 类型检查
+      "no-debugger": process.env.NODE_ENV === "production" ? "error" : "off"
     },
   },
 ])

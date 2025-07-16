@@ -29,6 +29,12 @@ export const deleteTableItem = (data: any) => {
   return service.post('/api/table/delete', data)
 }
 
+// 编辑表格数据
+export const editTableItem = (data: any) => {
+  return service.post('/api/table/edit', data)
+}
+
+// 获取性别可选项
 export const getGenderOptions = () => {
   return service.get('/api/select/genderOptions')
 }

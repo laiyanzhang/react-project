@@ -10,8 +10,10 @@
       "@/*": ["src/*"],
       "@components/*": ["src/components/*"],
       "@api/*": ["src/api/*"],
-      "@context/*": ["src/context/*"],
-      "@hook/*": ["src/hook/*"],
+      "@contexts/*": ["src/contexts/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@reducers/*": ["src/reducers/*"],
+      "@views/*": ["src/views/*"],
     }
   }
 }

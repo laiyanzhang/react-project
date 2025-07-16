@@ -1,4 +1,6 @@
 declare module '@api/*'
 declare module '@components/*'
-declare module '@context/*'
-declare module '@hook/*'
+declare module '@contexts/*'
+declare module '@hooks/*'
+declare module '@reducers/*'
+declare module '@views/*'

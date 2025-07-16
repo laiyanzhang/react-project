@@ -95,9 +95,26 @@ Mock.mock('/api/table/add', 'post', (options: any) => {
 Mock.mock('/api/table/delete', 'post', (options: any) => {
   const deleteItem = JSON.parse(options.body);
   tableData = tableData.filter((item: tableItem) => item.id != deleteItem.id)
-  console.log(tableData)
   return {
     code: 200,
     message: '删除成功',
+  };
+});
+
+// 模拟编辑接口
+Mock.mock('/api/table/edit', 'post', (options: any) => {
+  const editItem = JSON.parse(options.body);
+  tableData.forEach((item: tableItem) => {
+    if(item.id == editItem.id) {
+      item.gender = editItem.gender
+      item.name = editItem.name
+      item.age = editItem.age
+      item.email = editItem.email
+      item.address = editItem.address
+    }
+  })
+  return {
+    code: 200,
+    message: '编辑成功',
   };
 });
