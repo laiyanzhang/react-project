@@ -2,12 +2,13 @@
 import { lazy } from 'react';
 import { loaderGenderOptions } from './loader';
 
-const Home = lazy(() => import('@views/home/index'));
-const Demo = lazy(() => import('@views/demo/index'));
-const List = lazy(() => import('@views/list/index'));
-const Ref = lazy(() => import('@views/ref/index'));
-const Default = lazy(() => import('@views/Default'))
-const ErrorPage = lazy(() => import('@views/ErrorPage'))
+const Home = lazy(() => import('@/views/home/index'));
+const Demo = lazy(() => import('@/views/demo/index'));
+const List = lazy(() => import('@/views/list/index'));
+const Ref = lazy(() => import('@/views/ref/index'));
+const Default = lazy(() => import('@/views/Default'))
+const ErrorPage = lazy(() => import('@/views/ErrorPage'))
+const Redux = lazy(() => import('@/views/redux'))
 
 const routes = [
   {
@@ -38,7 +39,13 @@ const routes = [
         element: <Ref />,
         icon: <MailOutlined />,
         name: 'Ref'
-      }
+      },
+      {
+        path: 'redux',
+        element: <Redux />,
+        icon: <MailOutlined />,
+        name: 'Redux'
+      },
     ]
   },
 ];

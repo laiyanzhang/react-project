@@ -1,7 +1,7 @@
 import styles from './list.module.less'
 import DetailModal from './DetailModal'
-import tableReducer from '@reducers/tableReducer'
-import useMessage from '@hooks/useMessage'
+import tableReducer from '@/reducers/tableReducer'
+import useMessage from '@/hooks/useMessage'
 
 interface dataItem {
   id?: number,

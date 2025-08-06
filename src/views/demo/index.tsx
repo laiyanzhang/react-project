@@ -1,6 +1,6 @@
-import { getTableList, deleteTableItem } from '@api/index'
+import { getTableList, deleteTableItem } from '@/api/index'
 import styles from './demo.module.less'
-import useMessage from '@hooks/useMessage'
+import useMessage from '@/hooks/useMessage'
 import EditModal from './EditModal'
 
 interface dataItem {

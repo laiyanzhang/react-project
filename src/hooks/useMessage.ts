@@ -1,4 +1,4 @@
-import { MessageContext } from '@contexts/MessageContext';
+import { MessageContext } from '@/contexts/MessageContext';
 
 export default function useMessage() {
   const messageApi = useContext(MessageContext);

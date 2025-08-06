@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import routes from './router/index';
 import './App.css'
-import { MessageContext } from '@contexts/MessageContext';
+import { MessageContext } from '@/contexts/MessageContext';
 
 if (import.meta.env.DEV) {
   import('./api/mock')

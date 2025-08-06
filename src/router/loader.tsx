@@ -1,4 +1,4 @@
-import { getGenderOptions } from "@api/index"
+import { getGenderOptions } from "@/api/index"
 
 interface genderParams {
   id?: number

@@ -1,5 +1,5 @@
-import { editTableItem } from "@api/index"
-import useMessage from '@hooks/useMessage'
+import { editTableItem } from "@/api/index"
+import useMessage from '@/hooks/useMessage'
 import styles from './demo.module.less'
 
 type options = {

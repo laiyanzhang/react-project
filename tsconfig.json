@@ -8,12 +8,13 @@
     "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"],
-      "@components/*": ["src/components/*"],
-      "@api/*": ["src/api/*"],
-      "@contexts/*": ["src/contexts/*"],
-      "@hooks/*": ["src/hooks/*"],
-      "@reducers/*": ["src/reducers/*"],
-      "@views/*": ["src/views/*"],
+      "@/components/*": ["src/components/*"],
+      "@/api/*": ["src/api/*"],
+      "@/contexts/*": ["src/contexts/*"],
+      "@/hooks/*": ["src/hooks/*"],
+      "@/reducers/*": ["src/reducers/*"],
+      "@/views/*": ["src/views/*"],
+      "@/store/*": ["src/store/*"],
     }
   }
 }

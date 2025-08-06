@@ -8,12 +8,13 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, './src'),
       // 可以添加更多别名
-      '@components': path.resolve(__dirname, './src/components'),
-      '@api': path.resolve(__dirname, './src/api'),
-      '@contexts': path.resolve(__dirname, './src/contexts'),
-      '@hooks': path.resolve(__dirname, './src/hooks'),
-      '@reducers': path.resolve(__dirname, './src/reducers'),
-      '@views': path.resolve(__dirname, './src/views'),
+      '@/components': path.resolve(__dirname, './src/components'),
+      '@/api': path.resolve(__dirname, './src/api'),
+      '@/contexts': path.resolve(__dirname, './src/contexts'),
+      '@/hooks': path.resolve(__dirname, './src/hooks'),
+      '@/reducers': path.resolve(__dirname, './src/reducers'),
+      '@/views': path.resolve(__dirname, './src/views'),
+      '@/store': path.resolve(__dirname, './src/store'),
     }
   },
   plugins: [
@@ -29,7 +30,8 @@ export default defineConfig({
           '@tanstack/react-query': ['useQuery', 'useMutation', 'QueryClient', 'useQueryClient'],
           '@ant-design/icons': ['SmileOutlined', 'SearchOutlined', 'MailOutlined'],
           'use-immer': ['useImmer', 'useImmerReducer'],
-          'react-router-dom': ['useLoaderData']
+          'react-router-dom': ['useLoaderData'],
+          'react-redux': ['useSelector', 'useDispatch']
         },
       ],
       dts: 'src/auto-imports.d.ts', // 生成类型声明文件
